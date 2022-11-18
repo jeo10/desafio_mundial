@@ -21,9 +21,19 @@ class Partido(models.Model):
     estadio = models.CharField(max_length=25)
     fase = models.CharField(max_length=25)
     fase_desc = models.CharField(max_length=30, default=None)
-    equipo1 = models.ForeignKey(Seleccion, related_name='equipo1', default=None, on_delete=models.CASCADE)
-    equipo2 = models.ForeignKey(Seleccion, related_name='equipo2', default=None, on_delete=models.CASCADE)
+    equipo1 = models.ForeignKey(Seleccion, related_name='equipo1', default=None, on_delete=models.CASCADE,
+                                blank=True, null=True)
+    equipo2 = models.ForeignKey(Seleccion, related_name='equipo2', default=None, on_delete=models.CASCADE,
+                                blank=True, null=True)
 
     class Meta:
         verbose_name = 'Partido'
         verbose_name_plural = 'Partidos'
+
+
+class Prediccion(models.Model):
+    id_prediccion = models.AutoField(primary_key=True)
+    codigo_partido = models.ForeignKey(Partido, on_delete=models.CASCADE)
+    codigo_seleccion = models.ForeignKey(Seleccion, on_delete=models.CASCADE)
+    goles = models.IntegerField(default=None, blank=True, null=True)
+    puntos = models.IntegerField(default=None, blank=True, null=True)

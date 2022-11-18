@@ -6,6 +6,7 @@ from apps.mundial_predict.views import *
 router = routers.SimpleRouter()
 router.register(r'seleccion', SeleccionViewSet, basename='seleccion')
 router.register(r'partido', PartidoViewSet, basename='partido')
+router.register(r'prediccion', PrediccionViewSet, basename='prediccion')
 urlpatterns = [
 ]
 urlpatterns += router.urls

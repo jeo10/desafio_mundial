@@ -25,8 +25,15 @@ class PartidoSerializer(serializers.ModelSerializer):
             'estadio': instance.estadio,
             'fase': instance.fase,
             'fase_desc': instance.fase_desc,
-            'equipo1_cod': instance.equipo1.codigo_seleccion,
-            'equipo1_nombre': instance.equipo1.nombre,
-            'equipo2_cod': instance.equipo2.codigo_seleccion,
-            'equipo2_nombre': instance.equipo2.nombre
+            'equipo1_cod': '' if instance.fase != 'Grupos' else instance.equipo1.codigo_seleccion,
+            'equipo1_nombre': '' if instance.fase != 'Grupos' else instance.equipo1.nombre,
+            'equipo2_cod': '' if instance.fase != 'Grupos' else instance.equipo2.codigo_seleccion,
+            'equipo2_nombre': '' if instance.fase != 'Grupos' else instance.equipo2.nombre
         }
+
+
+class PrediccionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Prediccion
+        fields = '__all__'
