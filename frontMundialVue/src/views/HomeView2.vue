@@ -1,8 +1,5 @@
 <template>
   <div class="container text-center">
-    <div>
-      <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/world-cup-2022-banner-template-design-34083bda9def6a13f1b2c76966a78240_screen.jpg?ts=1570128211" height="">
-    </div>
     <div class="row mt-5 justify-content-center">
       <div class="col-md-6">
         <ul class="pagination justify-content-center">
@@ -19,7 +16,7 @@
     </div>
     <div class="row mt-1 justify-content-center">
       <div class="col-md-6">
-        <table class="table table-bordered fs-6 table-danger table-striped">
+        <table class="table table-bordered fs-6">
           <thead>
             <tr>
               <th scope="col">Horario</th>
@@ -66,7 +63,7 @@
     <div class="row mt-1 justify-content-center">
       <h5>Octavos De Final</h5>
       <div class="col">
-        <table class="table table-bordered fs-6 table-danger table-striped">
+        <table class="table table-bordered fs-6">
           <thead>
             <tr>
               <th scope="col">Horario</th>
@@ -98,7 +95,7 @@
     <div class="row mt-1 justify-content-center">
       <h5>Cuartos De Final</h5>
       <div class="col">
-        <table class="table table-bordered fs-6 table-danger table-striped">
+        <table class="table table-bordered fs-6">
           <thead>
             <tr>
               <th scope="col">Horario</th>
@@ -130,7 +127,7 @@
     <div class="row mt-1 justify-content-center">
       <h5>Semifinal</h5>
       <div class="col">
-        <table class="table table-bordered fs-6 table-danger table-striped">
+        <table class="table table-bordered fs-6">
           <thead>
             <tr>
               <th scope="col">Horario</th>
@@ -160,41 +157,9 @@
       </div>
     </div>
     <div class="row mt-1 justify-content-center">
-      <h5>Tercer Puesto</h5>
-      <div class="col">
-        <table class="table table-bordered fs-6 table-danger table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Horario</th>
-              <th scope="col">Fecha</th>
-              <th scope="col">equipo 1</th>
-              <th scope="col">goles</th>
-              <th scope="col">equipo 2</th>
-              <th scope="col">goles</th>
-              <th scope="col">Estadio</th>
-              <th scope="col">Ganador</th>
-
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="partido in tercerPuesto" :key="partido.codigo_partido">
-              <td>{{partido.horario}}</td>
-              <td>{{partido.fecha}}</td>
-              <td>{{partido.equipo1_nombre}}</td>
-              <td><input v-model="partido.gol1" style="width : 30px" @change="ganadorTercerPuesto(partido.codigo_partido)"></td>
-              <td>{{partido.equipo2_nombre}}</td>
-              <td><input v-model="partido.gol2" style="width : 30px" @change="ganadorTercerPuesto(partido.codigo_partido)"></td>
-              <td>{{partido.estadio}}</td>
-              <td>{{partido.ganador}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="row mt-1 justify-content-center">
       <h5>Final</h5>
       <div class="col">
-        <table class="table table-bordered fs-6 table-danger table-striped">
+        <table class="table table-bordered fs-6">
           <thead>
             <tr>
               <th scope="col">Horario</th>
@@ -222,9 +187,6 @@
           </tbody>
         </table>
       </div>
-    </div>
-    <div class="my-3">
-      <button class="btn btn-danger" @click="cargarResultados()">Cargar Resultados</button>
     </div>
   </div>
 </template>
@@ -697,7 +659,6 @@
           }
         }
         this.actualizarFinal(codigo_partido)
-        this.actualizarTercerPuesto(codigo_partido)
       },
 
       actualizarSemifinal(codigo_partido){
@@ -772,60 +733,6 @@
             }
           }
         }
-      },
-
-      ganadorTercerPuesto(codigo_partido){
-        if(this.tercerPuesto[0].codigo_partido == codigo_partido){
-            if(this.tercerPuesto[0].gol1 > this.tercerPuesto[0].gol2){
-              this.tercerPuesto[0].codigo_ganador = this.tercerPuesto[0].equipo1_cod
-              this.tercerPuesto[0].ganador = this.tercerPuesto[0].equipo1_nombre
-            }else{
-              this.tercerPuesto[0].codigo_ganador = this.tercerPuesto[0].equipo2_cod
-              this.tercerPuesto[0].ganador = this.tercerPuesto[0].equipo2_nombre
-            }
-          }
-      },
-
-      actualizarTercerPuesto(codigo_partido){
-        for(const i in this.semifinal){
-          if(this.semifinal[i].codigo_partido == codigo_partido){
-            if(codigo_partido == 'S1'){
-              for(const e in this.tercerPuesto){
-                if(this.tercerPuesto[e].codigo_partido == 'TP'){
-                  this.tercerPuesto[e].equipo1_cod = this.semifinal[i].codigo_perdedor
-                  this.tercerPuesto[e].equipo1_nombre = this.semifinal[i].perdedor
-                }
-              }
-            }
-            if(codigo_partido == 'S2'){
-              for(const e in this.tercerPuesto){
-                if(this.tercerPuesto[e].codigo_partido == 'TP'){
-                  this.tercerPuesto[e].equipo2_cod = this.semifinal[i].codigo_perdedor
-                  this.tercerPuesto[e].equipo2_nombre = this.semifinal[i].perdedor
-                }
-              }
-            }
-          }
-        }
-      },
-
-      cargarResultados(){
-        let enviar = []
-        for(const i in this.partidos_grupo_A){
-          enviar.push({
-            'codigo_partido': this.partidos_grupo_A[i].codigo_partido,
-            'codigo_seleccion': this.partidos_grupo_A[i].equipo1_cod,
-            'goles': this.partidos_grupo_A[i].gol1,
-            'puntos': 0
-          },
-          {
-            'codigo_partido': this.partidos_grupo_A[i].codigo_partido,
-            'codigo_seleccion': this.partidos_grupo_A[i].equipo2_cod,
-            'goles': this.partidos_grupo_A[i].gol2,
-            'puntos': 0
-          })
-        }
-        console.log(enviar)
       }
     },
 
@@ -890,7 +797,7 @@
             this.partidos[i]['ganador'] = ''
             this.partidos[i]['codigo_ganador'] = ''
             this.tercerPuesto.push(this.partidos[i])
-          }
+          }    
         }
       })
       let url_selecciones = server + 'seleccion'

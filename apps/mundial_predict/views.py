@@ -1,8 +1,13 @@
 from rest_framework.viewsets import ViewSet
+from django.views.generic import TemplateView
 from apps.mundial_predict.serializer import SeleccionSerializer, PartidoSerializer, PrediccionSerializer
 from apps.mundial_predict.models import Seleccion, Partido, Prediccion
 from rest_framework.response import Response
 from rest_framework import status
+
+
+class MundialView(TemplateView):
+    template_name = 'index.html'
 
 
 class SeleccionViewSet(ViewSet):

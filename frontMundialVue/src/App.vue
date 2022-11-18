@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
@@ -10,3 +9,11 @@ import HelloWorld from './components/HelloWorld.vue'
 <style scoped>
 
 </style>
+
+<script>
+  export default {
+    created() {
+      this.$router.push('/')
+    }
+  }
+</script>
